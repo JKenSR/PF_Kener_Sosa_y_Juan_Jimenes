@@ -1,0 +1,83 @@
+.login {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 330px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.438); 
+    border-radius: 10px;
+    backdrop-filter: blur(2px); 
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.468); 
+}
+
+.login h1 {
+    color: #ffffff;  
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.login h1 img {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+    filter: brightness(0) invert(1); 
+}
+
+/* Estilos generales para los campos de entrada */
+input {
+    width: 90% !important;
+    margin-bottom: 10px !important;
+    border: none !important;
+    outline: none !important;
+    padding: 10px 10px 10px 25px !important;
+    font-size: 15px !important;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #ffffff !important;
+    position: relative !important;
+    background-color: #7b252500;;
+}
+
+input::placeholder {
+    color: #ffffff !important;
+}
+
+.icon-usuario,
+.icon-contrasena {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    filter: brightness(0) invert(1); 
+}
+
+/* Ajuste de posición del icono de usuario */
+.icon-usuario {
+    left: 20px; 
+    top: 114px; 
+}
+
+/* Ajuste de posición del icono de contraseña */
+.icon-contrasena {
+    left: 21px; 
+    bottom: 98px;
+}
+
+/* Estilo para los botones */
+button {
+    width: 150px;
+    height: 35px;
+    background: #00c016c8;
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
