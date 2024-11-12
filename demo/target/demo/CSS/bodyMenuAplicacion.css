@@ -1,151 +1,192 @@
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat Alternates', sans-serif;
 }
-body{
-    background: url("Image/Vagabond.png");
-    background-size: 100vw 100vh;
-    background-repeat: no-repeat;
-}
 
-.capa{
+/* El fondo ahora está en el archivo JSP */
+.capa {
     position: fixed;
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.372);
     z-index: -1;
-    top: 0;left: 0;
+    top: 0;
+    left: 0;
 }
 
-.header{
+.header {
     width: 100%;
     height: 100px;
     position: fixed;
-    top: 0;left: 0;
+    top: 0;
+    left: 0;
+    background: rgba(3, 3, 3, 0.311); /* Fondo blanco semi-transparente */
+    border-bottom-left-radius: 20px; /* Esquinas redondeadas */
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
-.container{
+
+.container {
     width: 90%;
     max-width: 1200px;
     margin: auto;
 }
-.container .btn-menu, .logo{
+
+.container .btn-menu, .logo {
     float: left;
-    line-height:100px;
+    line-height: 100px;
 }
-.container .btn-menu label{
-    color: #fff;
+
+/* Enlaces del menú */
+.container .btn-menu label {
+    color: #ffffff;
     font-size: 25px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
 }
-.logo h1{
-    color: #fff;
+
+.logo h1 {
+    color: #ffffff;
     font-weight: 400;
     font-size: 22px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 10px;
 }
-.container .menu{
+
+.container .menu {
     float: right;
     line-height: 100px;
 }
-.container .menu a{
+
+/* Estilos para los enlaces del menú principal */
+.container .menu a {
     display: inline-block;
-    padding: 15px;
+    position: relative;
+    padding: 10px;
     line-height: normal;
     text-decoration: none;
-    color: #fff;
-    transition: all 0.3s ease;
-    border-bottom: 2px solid transparent;
-    font-size: 15px;
+    color: #f5f5f5;
+    transition: color 0.3s ease;
+    font-size: 21px;
+    font-weight: bold;
     margin-right: 5px;
-}
-.container .menu a:hover{
-    border-bottom: 2px solid #c7c7c7;
-    padding-bottom: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#btn-menu{
+/* Pseudo-elemento para la barra bajo los enlaces */
+.container .menu a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transition: width 0.6s ease;
+}
+
+/* Animación al hacer hover */
+.container .menu a:hover::before {
+    width: 100%;
+}
+
+#btn-menu {
     display: none;
 }
-.container-menu{
+
+.container-menu {
     position: absolute;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100vh;
-    top: 0;left: 0;
+    top: 0;
+    left: 0;
     transition: all 500ms ease;
     opacity: 0;
     visibility: hidden;
 }
-#btn-menu:checked ~ .container-menu{
+
+#btn-menu:checked ~ .container-menu {
     opacity: 1;
     visibility: visible;
 }
 
-
-.cont-menu{
+/* Barra lateral (menú) */
+.cont-menu {
     width: 100%;
-    max-width: 250px;
-    background: #403f3f;
+    max-width: 230px;
     height: 100vh;
     position: relative;
+    background:#f3f4f6;
     transition: all 500ms ease;
     transform: translateX(-100%);
 }
 
-
-#btn-menu:checked ~ .container-menu .cont-menu{
+#btn-menu:checked ~ .container-menu .cont-menu {
     transform: translateX(0%);
 }
-.cont-menu nav{
+
+.cont-menu nav {
     transform: translateY(15%);
 }
-.cont-menu nav a{
+
+/* Enlaces dentro de la barra lateral */
+.cont-menu nav a {
     display: block;
     text-decoration: none;
     padding: 20px;
-    color: #ffffff;
+    color: #000000;
     border-left: 10px solid transparent;
     transition: all 400ms ease;
 }
-.cont-menu nav a:hover{
-    border-left: 5px solid #c7c7c7;
-    background: #1f1f1f;
+
+/* Efecto hover en los enlaces del menú lateral */
+.cont-menu nav a:hover {
+    border-left: 5px solid #4682B4;
+    background: #8d8d8d;
 }
-.cont-menu label{
+
+.cont-menu label {
     position: absolute;
     right: 5px;
     top: 10px;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
     font-size: 18px;
 }
-.boton{
+
+.boton {
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     font-size: 18px;
 }
+
 .boton .icono {
     width: 20px;
     height: 20px;
     margin-right: 10px;
 }
-.botonCerrar .icono{
+
+.botonCerrar .icono {
     width: 20px;
     height: 20px;
     margin-right: 10px;
 }
-.botonCerrar{
+
+.botonCerrar {
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     font-size: 18px;
 }
+
 .main-content {
     flex: 1;
     display: flex;

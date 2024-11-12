@@ -6,18 +6,18 @@
     transform: translate(-50%, -50%);
     width: 330px;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.438); 
+    background-color: rgba(0, 0, 0, 0.438);
     border-radius: 10px;
-    backdrop-filter: blur(2px); 
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.468); 
+    backdrop-filter: blur(2px);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.468);
 }
 
 .login h1 {
-    color: #ffffff;  
+    color: #ffffff;
     text-align: center;
     margin-bottom: 20px;
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
@@ -25,7 +25,7 @@
     width: 40px;
     height: auto;
     margin-right: 10px;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
 }
 
 /* Estilos generales para los campos de entrada */
@@ -41,7 +41,7 @@ input {
     color: #ffffff !important;
     border-bottom: 2px solid #ffffff !important;
     position: relative !important;
-    background-color: #7b252500;;
+    background-color: #7b252500;
 }
 
 input::placeholder {
@@ -54,18 +54,18 @@ input::placeholder {
     width: 20px;
     height: 20px;
     background-size: cover;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
 }
 
 /* Ajuste de posición del icono de usuario */
 .icon-usuario {
-    left: 20px; 
-    top: 114px; 
+    left: 20px;
+    top: 114px;
 }
 
 /* Ajuste de posición del icono de contraseña */
 .icon-contrasena {
-    left: 21px; 
+    left: 21px;
     bottom: 98px;
 }
 
@@ -81,3 +81,4 @@ button {
     margin-top: 20px;
     border-radius: 10px;
 }
+
