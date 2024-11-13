@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.Statement, java.sql.ResultSet, java.sql.SQLException" %>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.CallableStatement, java.sql.ResultSet, java.sql.SQLException" %>
 
 <%
     // Variables para mensajes de error
@@ -11,24 +11,18 @@
     String contrasenaDB = "JKen0407";
 
     Connection conn = null;
-    Statement stmt = null;
+    CallableStatement stmt = null;
     ResultSet rs = null;
 
     try {
-        // Cargar el driver y establecer la conexión
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        // Establecer la conexión
         conn = DriverManager.getConnection(URL, usuarioDB, contrasenaDB);
 
-        // Crear la consulta para obtener todas las filas de entregaIncompleta
-        String sql = "SELECT id_EntregaIncompleta, cedula, papel, carton, vidrio, textiles, metales, fecha, hora FROM entregaIncompleta";
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery(sql);
+        // Llamar al procedimiento almacenado
+        String sql = "{CALL ObtenerTodasLasEntregasIncompletas()}";
+        stmt = conn.prepareCall(sql);
+        rs = stmt.executeQuery();
 
-    } catch (SQLException e) {
-        mensajeError = "Error de conexión o consulta SQL: " + e.getMessage();
-    } catch (ClassNotFoundException e) {
-        mensajeError = "Error al cargar el driver MySQL: " + e.getMessage();
-    }
 %>
 
 <!DOCTYPE html>
@@ -81,17 +75,16 @@
                     </thead>
                     <tbody>
                         <%
-                            if (rs != null) {
-                                while (rs.next()) {
-                                    int idEntregaIncompleta = rs.getInt("id_EntregaIncompleta");
-                                    String cedula = rs.getString("cedula");
-                                    int papel = rs.getInt("papel");
-                                    int carton = rs.getInt("carton");
-                                    int vidrio = rs.getInt("vidrio");
-                                    int textiles = rs.getInt("textiles");
-                                    int metales = rs.getInt("metales");
-                                    String fecha = rs.getString("fecha");
-                                    String hora = rs.getString("hora");
+                            while (rs.next()) {
+                                int idEntregaIncompleta = rs.getInt("id_EntregaIncompleta");
+                                String cedula = rs.getString("cedula");
+                                int papel = rs.getInt("papel");
+                                int carton = rs.getInt("carton");
+                                int vidrio = rs.getInt("vidrio");
+                                int textiles = rs.getInt("textiles");
+                                int metales = rs.getInt("metales");
+                                String fecha = rs.getString("fecha");
+                                String hora = rs.getString("hora");
                         %>
                         <tr>
                             <td><%= idEntregaIncompleta %></td>
@@ -113,7 +106,6 @@
                             </td>
                         </tr>
                         <% 
-                                }
                             }
                         %>
                     </tbody>
@@ -121,11 +113,15 @@
             </div>
         </div>
     </div>
-
-    <%
-        if (rs != null) rs.close();
-        if (stmt != null) stmt.close();
-        if (conn != null) conn.close();
-    %>
 </body>
 </html>
+
+<%
+    } catch (SQLException e) {
+        mensajeError = "Error de conexión o consulta SQL: " + e.getMessage();
+    } finally {
+        if (rs != null) try { rs.close(); } catch (SQLException e) { /* manejar error */ }
+        if (stmt != null) try { stmt.close(); } catch (SQLException e) { /* manejar error */ }
+        if (conn != null) try { conn.close(); } catch (SQLException e) { /* manejar error */ }
+    }
+%>

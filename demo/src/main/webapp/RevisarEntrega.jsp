@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.CallableStatement, java.sql.ResultSet, java.sql.SQLException" %>
 
 <%
@@ -23,13 +23,6 @@
         stmt = conn.prepareCall(sql);
         rs = stmt.executeQuery();
 
-    } catch (SQLException e) {
-        mensajeError = "Error de conexión o consulta SQL: " + e.getMessage();
-    } finally {
-        if (rs != null) try { rs.close(); } catch (SQLException e) { /* manejar error */ }
-        if (stmt != null) try { stmt.close(); } catch (SQLException e) { /* manejar error */ }
-        if (conn != null) try { conn.close(); } catch (SQLException e) { /* manejar error */ }
-    }
 %>
 
 <!DOCTYPE html>
@@ -82,17 +75,16 @@
                     </thead>
                     <tbody>
                         <%
-                            if (rs != null) {
-                                while (rs.next()) {
-                                    int idEntregaIncompleta = rs.getInt("id_EntregaIncompleta");
-                                    String cedula = rs.getString("cedula");
-                                    int papel = rs.getInt("papel");
-                                    int carton = rs.getInt("carton");
-                                    int vidrio = rs.getInt("vidrio");
-                                    int textiles = rs.getInt("textiles");
-                                    int metales = rs.getInt("metales");
-                                    String fecha = rs.getString("fecha");
-                                    String hora = rs.getString("hora");
+                            while (rs.next()) {
+                                int idEntregaIncompleta = rs.getInt("id_EntregaIncompleta");
+                                String cedula = rs.getString("cedula");
+                                int papel = rs.getInt("papel");
+                                int carton = rs.getInt("carton");
+                                int vidrio = rs.getInt("vidrio");
+                                int textiles = rs.getInt("textiles");
+                                int metales = rs.getInt("metales");
+                                String fecha = rs.getString("fecha");
+                                String hora = rs.getString("hora");
                         %>
                         <tr>
                             <td><%= idEntregaIncompleta %></td>
@@ -114,7 +106,6 @@
                             </td>
                         </tr>
                         <% 
-                                }
                             }
                         %>
                     </tbody>
@@ -122,11 +113,15 @@
             </div>
         </div>
     </div>
-
-    <%
-        if (rs != null) rs.close();
-        if (stmt != null) stmt.close();
-        if (conn != null) conn.close();
-    %>
 </body>
 </html>
+
+<%
+    } catch (SQLException e) {
+        mensajeError = "Error de conexión o consulta SQL: " + e.getMessage();
+    } finally {
+        if (rs != null) try { rs.close(); } catch (SQLException e) { /* manejar error */ }
+        if (stmt != null) try { stmt.close(); } catch (SQLException e) { /* manejar error */ }
+        if (conn != null) try { conn.close(); } catch (SQLException e) { /* manejar error */ }
+    }
+%>

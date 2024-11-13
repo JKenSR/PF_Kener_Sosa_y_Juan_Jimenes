@@ -11,7 +11,8 @@ body {
 }
 
 input {
-   background-color: #007bff
+   background-color: #ffffff;
+   border-color: #000000;
 }
 
 

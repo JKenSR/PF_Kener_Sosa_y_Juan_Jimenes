@@ -1,63 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet, java.sql.SQLException, java.sql.CallableStatement" %>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.CallableStatement, java.sql.SQLException, java.sql.ResultSet" %>
 
 <%
-    // Definir las variables
+    // Obtenemos el id de la entrega incompleta desde la sesión
     String idEntregaIncompleta = request.getParameter("idEntregaIncompleta");
-    String mensajeError = null;
 
-    // Variables para los detalles que se actualizarán
-    String papelStr = request.getParameter("papel");
-    int papel = papelStr != null ? Integer.parseInt(papelStr) : 0;
+    if (idEntregaIncompleta == null || idEntregaIncompleta.isEmpty()) {
+        response.sendRedirect("MenuAplicacion.jsp"); // Si no hay ID, redirigir al menú
+        return;
+    }
 
-    String cartonStr = request.getParameter("carton");
-    int carton = cartonStr != null ? Integer.parseInt(cartonStr) : 0;
+    // Datos de conexión a la base de datos
+    String URL = "jdbc:mysql://localhost:3306/centro_reciclaje?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+    String usuarioDB = "JKenS";
+    String contrasenaDB = "JKen0407";
 
-    String vidrioStr = request.getParameter("vidrio");
-    int vidrio = vidrioStr != null ? Integer.parseInt(vidrioStr) : 0;
-
-    String textilesStr = request.getParameter("textiles");
-    int textiles = textilesStr != null ? Integer.parseInt(textilesStr) : 0;
-
-    String metalesStr = request.getParameter("metales");
-    int metales = metalesStr != null ? Integer.parseInt(metalesStr) : 0;
-
-    // Conectar a la base de datos
     Connection conn = null;
     CallableStatement stmt = null;
+    ResultSet rs = null;
+
+    // Variables para almacenar los datos de la entrega incompleta
+    String cedula = "";
+    String papel = "";
+    String carton = "";
+    String vidrio = "";
+    String textiles = "";
+    String metales = "";
+    String fecha = "";
+    String hora = "";
 
     try {
-        // Establecer la conexión con la base de datos
-        String URL = "jdbc:mysql://localhost:3306/centro_reciclaje?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
-        String usuarioDB = "JKenS";
-        String contrasenaDB = "JKen0407";
-
+        // Cargar el driver MySQL
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection(URL, usuarioDB, contrasenaDB);
 
-        // Llamar al procedimiento para actualizar los detalles de la entrega incompleta
-        String sql = "{CALL ActualizarEntregaIncompleta(?, ?, ?, ?, ?, ?)}";
+        // Llamamos al procedimiento almacenado ObtenerEntregaIncompleta
+        String sql = "{CALL ObtenerEntregaIncompleta(?)}";
         stmt = conn.prepareCall(sql);
-        stmt.setInt(1, Integer.parseInt(idEntregaIncompleta));
-        stmt.setInt(2, papel);
-        stmt.setInt(3, carton);
-        stmt.setInt(4, vidrio);
-        stmt.setInt(5, textiles);
-        stmt.setInt(6, metales);
-        stmt.executeUpdate();
+        stmt.setString(1, idEntregaIncompleta);
 
-        mensajeError = "Entrega actualizada exitosamente.";
+        // Ejecutar el procedimiento
+        rs = stmt.executeQuery();
 
-    } catch (ClassNotFoundException e) {
-        mensajeError = "Error al cargar el driver MySQL: " + e.getMessage();
+        // Si la entrega incompleta existe, obtenemos sus datos
+        if (rs.next()) {
+            cedula = rs.getString("cedula");
+            papel = rs.getString("papel");
+            carton = rs.getString("carton");
+            vidrio = rs.getString("vidrio");
+            textiles = rs.getString("textiles");
+            metales = rs.getString("metales");
+            fecha = rs.getString("fecha");
+            hora = rs.getString("hora");
+        }
     } catch (SQLException e) {
-        mensajeError = "Error de conexión o consulta SQL: " + e.getMessage();
+        out.println("Error de conexión o consulta SQL: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+        out.println("Error al cargar el driver MySQL: " + e.getMessage());
     } finally {
         try {
+            if (rs != null) rs.close();
             if (stmt != null) stmt.close();
             if (conn != null) conn.close();
         } catch (SQLException e) {
-            mensajeError = "Error al cerrar la conexión: " + e.getMessage();
+            out.println("Error al cerrar la conexión: " + e.getMessage());
         }
     }
 %>
@@ -67,84 +73,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Entrega</title>
-    <link rel="stylesheet" href="CSS/bodyActualizarEntrega.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Actualizar Entrega Incompleta</title>
+    <link rel="stylesheet" href="CSS/bodyPerfilReciclador.css">
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="header">
-                <button onclick="window.location.href='DetalleEntrega.jsp'" class="back-button">
+                <button onclick="window.location.href='MenuAplicacion.jsp'" class="back-button">
                     ← Volver
                 </button>
-                <h1>Actualizar Entrega</h1>
+                <h1>Actualizar Entrega Incompleta</h1>
             </div>
 
-            <% if (mensajeError != null) { %>
-                <div class="error-message">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                    <span><%= mensajeError %></span>
-                </div>
-            <% } %>
+            <div class="form-section">
+                <form action="ActualizarEntrega2.jsp" method="post">
+                    <div class="input-group full-width">
+                        <label for="id_EntregaIncompleta">ID Entrega Incompleta</label>
+                        <input type="text" id="id_EntregaIncompleta" name="id_EntregaIncompleta" value="<%= idEntregaIncompleta %>" readonly />
+                    </div>
 
-            <form method="post" action="ActualizarEntrega.jsp" class="materials-form">
-                <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="cedula">Cédula</label>
+                            <input type="text" id="cedula" name="cedula" value="<%= cedula %>" readonly />
+                        </div>
 
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label for="papel">Papel (kg)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="papel" name="papel" value="<%= papel %>" min="0" step="0.1">
-                            <span class="unit">kg</span>
+                        <div class="input-group">
+                            <label for="papel">Papel</label>
+                            <input type="number" id="papel" name="papel" value="<%= papel %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="carton">Cartón</label>
+                            <input type="number" id="carton" name="carton" value="<%= carton %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="vidrio">Vidrio</label>
+                            <input type="number" id="vidrio" name="vidrio" value="<%= vidrio %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="textiles">Textiles</label>
+                            <input type="number" id="textiles" name="textiles" value="<%= textiles %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="metales">Metales</label>
+                            <input type="number" id="metales" name="metales" value="<%= metales %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" id="fecha" name="fecha" value="<%= fecha %>" required />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="hora">Hora</label>
+                            <input type="time" id="hora" name="hora" value="<%= hora %>" required />
                         </div>
                     </div>
 
-                    <div class="input-group">
-                        <label for="carton">Cartón (kg)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="carton" name="carton" value="<%= carton %>" min="0" step="0.1">
-                            <span class="unit">kg</span>
-                        </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            Actualizar Entrega
+                        </button>
                     </div>
-
-                    <div class="input-group">
-                        <label for="vidrio">Vidrio (kg)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="vidrio" name="vidrio" value="<%= vidrio %>" min="0" step="0.1">
-                            <span class="unit">kg</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="textiles">Textiles (kg)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="textiles" name="textiles" value="<%= textiles %>" min="0" step="0.1">
-                            <span class="unit">kg</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="metales">Metales (kg)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="metales" name="metales" value="<%= metales %>" min="0" step="0.1">
-                            <span class="unit">kg</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">
-                        Actualizar Entrega
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </body>

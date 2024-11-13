@@ -4,7 +4,7 @@
 <%
     // Definir las variables
     String idEntregaIncompleta = request.getParameter("idEntregaIncompleta");
-    String accion = request.getParameter("accion"); // 'aceptar', 'rechazar', 'obtener'
+    String accion = request.getParameter("accion"); // 'aceptar', 'rechazar', 'actualizar', 'obtener'
     String idColaborador = (String) session.getAttribute("id_Colaborador");
 
     // Variables para los detalles de la entrega
@@ -50,8 +50,7 @@
             stmt.setString(2, idColaborador);
             stmt.executeUpdate();
             mensajeError = "Entrega aceptada exitosamente.";
-        }
-         else if ("rechazar".equals(accion)) {
+        } else if ("rechazar".equals(accion)) {
             // Llamar al procedimiento para rechazar la entrega incompleta
             String sql = "{CALL RechazarEntregaIncompleta(?)}";
             stmt = conn.prepareCall(sql);
@@ -91,43 +90,34 @@
             <p class="error-message"><%= mensajeError %></p>
         <% } else { %>
 
-        <table class="table">
-            <tr><td>Cédula:</td><td><%= cedulaEntrega %></td></tr>
-            <tr><td>Papel (kg):</td><td><%= papel %></td></tr>
-            <tr><td>Cartón (kg):</td><td><%= carton %></td></tr>
-            <tr><td>Vidrio (kg):</td><td><%= vidrio %></td></tr>
-            <tr><td>Textiles (kg):</td><td><%= textiles %></td></tr>
-            <tr><td>Metales (kg):</td><td><%= metales %></td></tr>
-            <tr><td>Fecha:</td><td><%= fecha %></td></tr>
-            <tr><td>Hora:</td><td><%= hora %></td></tr>
-        </table>
+        <form method="post" action="ActualizarEntrega.jsp">
+            <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+            <table class="table">
+                <tr><td>Cédula:</td><td><%= cedulaEntrega %></td></tr>
+                <tr><td>Papel (kg):</td><td><%= papel %></td></tr>
+                <tr><td>Cartón (kg):</td><td><%= carton %></td></tr>
+                <tr><td>Vidrio (kg):</td><td><%= vidrio %></td></tr>
+                <tr><td>Textiles (kg):</td><td><%= textiles %></td></tr>
+                <tr><td>Metales (kg):</td><td><%= metales %></td></tr>
+                <tr><td>Fecha:</td><td><%= fecha %></td></tr>
+                <tr><td>Hora:</td><td><%= hora %></td></tr>
+            </table>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
 
-        <!-- Botones de acción -->
-        <div class="buttons">
-            <!-- Botón Volver -->
-            <button type="button" onclick="window.location.href='RevisarEntrega.jsp'" class="btn btn-secondary">Volver</button>
-
-            <!-- Botón Aceptar -->
-            <!-- Botón Aceptar -->
-            <form method="post" action="DetalleEntrega.jsp">
+        <form method="post" action="DetalleEntrega.jsp">
             <input type="hidden" name="accion" value="aceptar">
             <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
-            <input type="hidden" name="id_Colaborador" value="<%= idColaborador %>">
             <button type="submit" class="btn btn-success">Aceptar</button>
-            </form>
+        </form>
 
-            <!-- Botón Rechazar -->
-            <form method="post" action="DetalleEntrega.jsp">
-                <input type="hidden" name="accion" value="rechazar">
-                <button type="submit" class="btn btn-danger">Rechazar</button>
-            </form>
-            
-            <!-- Botón Actualizar -->
-            <form method="post" action="ActualizarEntrega.jsp">
-                <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
-                <button type="submit" class="btn btn-primary">Actualizar</button>
-            </form>
-        </div>
+        <form method="post" action="DetalleEntrega.jsp">
+            <input type="hidden" name="accion" value="rechazar">
+            <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+            <button type="submit" class="btn btn-danger">Rechazar</button>
+        </form>
+
+        <button onclick="window.location.href='RevisarEntrega.jsp'" class="btn btn-secondary">Volver</button>
 
         <% } %>
     </div>

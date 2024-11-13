@@ -26,6 +26,32 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        /* Estilo para la frase del medio */
+        .frase-medio {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Estilo para la frase adicional */
+        .frase-adicional {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transform: translate(-50%, -50%);
+            font-size: 35px;
+            color: #ffffff;
+            font-weight: normal;
+            text-align: center;
+            width: 50%;
+        }
     </style>
 </head>
 <body>
@@ -38,10 +64,10 @@
                 <h1>Menu</h1>
             </div>
             <nav class="menu">
-                <a href="ConsejosSeguridad.jsp">¿Quiénes somos?</a>
-                <a href="BeneficiosTransporte.jsp">¿Por qué reciclar?</a>
-                <a href="BeneficiosBicicleta.jsp">¿Qué materiales son reciclables?</a>
-                <a href="EducacionSenales.jsp">Impacto del reciclaje</a>
+                <a href="QuienesSomos.jsp">¿Quiénes somos?</a>
+                <a href="PorqueReciclar.jsp">¿Por qué reciclar?</a>
+                <a href="MaterialesReciclables.jsp">¿Qué materiales son reciclables?</a>
+                <a href="ImpactoReciclaje.jsp">Impacto del reciclaje</a>
             </nav>
         </div>
     </header>
@@ -60,6 +86,10 @@
                     <img src="CSS/Image/MuchosUsuarios.png" alt="Icono" class="icono">
                     Administrar entregas
                 </a>
+                <a href="Creditos.jsp" class="boton">
+                    <img src="CSS/Image/MuchosUsuarios.png" alt="Icono" class="icono">
+                    Créditos
+                </a>
 
                 <a href="index.jsp" class="botonCerrar">
                     <img src="CSS/Image/Salir.png" alt="Icono" class="icono">
@@ -69,5 +99,16 @@
             <label for="btn-menu">✖️</label>
         </div>
     </div>
+
+    <!-- Frase del medio -->
+    <div class="frase-adicional">
+        <p>Cuida el planeta, recicla y reduce, cada pequeño gesto cuenta y juntos podemos hacer una gran diferencia en la lucha contra el cambio climático.</p>
+    </div>
+
+    <!-- Frase adicional -->
+    <div class="frase-medio">
+        <p>El cambio esta en nosotros</p>
+    </div>
+
 </body>
 </html>

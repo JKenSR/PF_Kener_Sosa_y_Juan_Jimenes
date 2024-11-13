@@ -1,0 +1,230 @@
+/* Archivo: CSS/bodyMaterialesReciclables.css */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+/* Fondo principal */
+body {
+    background: url("CSS/Image/MaterialesReciclables.png") no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+/* Fondo oscuro detrás del menú desplegable */
+.capa {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.372);
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+/* Estilos para el header */
+.header {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(3, 3, 3, 0.311);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Contenedor para los elementos del header */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Botón de menú */
+.btn-menu {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.btn-menu label {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Logo y título */
+.logo h1 {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* Menú de navegación */
+.menu {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.menu a {
+    color: #f0f0f0;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.menu a:hover {
+    color: #c0c0c0;
+}
+
+/* Menú lateral desplegable */
+#btn-menu {
+    display: none;
+}
+
+.container-menu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: all 500ms ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 11;
+}
+
+#btn-menu:checked ~ .container-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cont-menu {
+    width: 100%;
+    max-width: 230px;
+    height: 100vh;
+    background: #e0f7fa;
+    transition: all 500ms ease;
+    transform: translateX(-100%);
+    padding-top: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+#btn-menu:checked ~ .container-menu .cont-menu {
+    transform: translateX(0%);
+}
+
+.cont-menu nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+/* Enlaces en el menú desplegable */
+.cont-menu nav a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 15px;
+    color: #333333;
+    font-weight: bold;
+    font-size: 16px;
+    border-left: 10px solid transparent;
+    transition: all 400ms ease;
+    white-space: nowrap;
+}
+
+.cont-menu nav a:hover {
+    border-left: 5px solid #26a69a;
+    background: #b2ebf2;
+}
+
+.cont-menu nav a .icono {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+/* Icono de cierre */
+.cont-menu label {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #8d8d8d;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 1px;
+}
+
+/* Fondo y contenido para la sección principal */
+.background-section {
+    background-image: url("CSS/Image/MaterialesReciclables.png");
+    background-size: 100% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 100px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Contenedor con superposición de contenido */
+.content-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 800px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Sección para el video */
+.video-section {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.video-section h2 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.video-frame video {
+    border: 1px solid #26a69a;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 250px;
+}
