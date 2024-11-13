@@ -117,9 +117,12 @@
                             Actualizar Perfil
                         </button>
                         
-                        <button type="button" onclick="if(confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.')) window.location.href='EliminarReciclador.jsp'" class="btn btn-danger">
+                        <button type="button" onclick="if(confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.')) { 
+                            window.location.href='EliminarReciclador.jsp?cedula=<%= cedula %>' 
+                        }" class="btn btn-danger">
                             Eliminar Perfil
                         </button>
+                        
                     </div>
                 </form>
             </div>

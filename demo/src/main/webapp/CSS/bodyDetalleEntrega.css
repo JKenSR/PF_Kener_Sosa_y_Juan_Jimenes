@@ -10,17 +10,6 @@ body {
     height: 100vh;
 }
 
-input {
-   background-color: #ffffff;
-   border-color: #000000;
-}
-
-
-input[readonly] {
-    background-color: var(--gray-100);
-    cursor: not-allowed;
-}
-
 .container {
     background-color: #ffffff;
     padding: 20px;
@@ -33,12 +22,6 @@ input[readonly] {
 .header {
     text-align: center;
     margin-bottom: 20px;
-}
-
-.header h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
 }
 
 .table {
@@ -67,16 +50,19 @@ input[readonly] {
     background-color: #f1f1f1;
 }
 
-.table tr:last-child td {
-    border-bottom: none;
-}
-
-.buttons {
+/* Alinear los botones horizontalmente */
+.button-group-horizontal {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px; /* Espaciado entre los botones */
     margin-top: 20px;
 }
 
+.button-group-horizontal form, .button-group-horizontal button {
+    margin: 0;
+}
+
+/* Estilos para los botones */
 .btn {
     padding: 10px 20px;
     border: none;
@@ -94,9 +80,11 @@ input[readonly] {
 .btn-primary:hover {
     background-color: #0055b0;
 }
+
 .btn-success {
     background-color: #05c628;
 }
+
 .btn-success:hover {
     background-color: #008518;
 }
@@ -104,6 +92,7 @@ input[readonly] {
 .btn-danger {
     background-color: #e10000;
 }
+
 .btn-danger:hover {
     background-color: #9b0000;
 }

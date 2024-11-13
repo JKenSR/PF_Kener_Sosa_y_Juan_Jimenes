@@ -23,7 +23,7 @@
         stmt.setString(1, cedula);
 
         stmt.executeUpdate();
-        response.sendRedirect("LoginReciclador.jsp"); // Redirigir al login después de eliminar
+        response.sendRedirect("LoginReciclar.jsp"); // Redirigir al login después de eliminar
 
     } catch (SQLException e) {
         mensajeError = "Error al eliminar: " + e.getMessage();

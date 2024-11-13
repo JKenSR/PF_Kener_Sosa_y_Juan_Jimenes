@@ -90,7 +90,7 @@
                         <img src="CSS/Image/MuchosUsuarios.png" alt="Colaboradores" class="icono"> Administrar entregas
                     </a>
                     <a href="Creditos.jsp">
-                        <img src="CSS/Image/Créditos.png" alt="Créditos" class="icono"> Créditos
+                        <img src="CSS/Image/MuchosUsuarios.png" alt="Créditos" class="icono"> Créditos
                     </a>
                     <a href="index.jsp">
                         <img src="CSS/Image/Salir.png" alt="Cerrar sesión" class="icono"> Cerrar sesión

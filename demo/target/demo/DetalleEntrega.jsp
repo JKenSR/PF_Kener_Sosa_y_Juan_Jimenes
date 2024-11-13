@@ -89,7 +89,8 @@
         <% if (mensajeError != null) { %>
             <p class="error-message"><%= mensajeError %></p>
         <% } else { %>
-
+        
+        <!-- Tabla de detalles de entrega incompleta -->
         <form method="post" action="ActualizarEntrega.jsp">
             <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
             <table class="table">
@@ -102,23 +103,29 @@
                 <tr><td>Fecha:</td><td><%= fecha %></td></tr>
                 <tr><td>Hora:</td><td><%= hora %></td></tr>
             </table>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
         </form>
 
-        <form method="post" action="DetalleEntrega.jsp">
-            <input type="hidden" name="accion" value="aceptar">
-            <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
-            <button type="submit" class="btn btn-success">Aceptar</button>
-        </form>
+        <!-- Botones alineados horizontalmente -->
+        <div class="button-group-horizontal">
+            <form method="post" action="ActualizarEntrega.jsp">
+                <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
 
-        <form method="post" action="DetalleEntrega.jsp">
-            <input type="hidden" name="accion" value="rechazar">
-            <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
-            <button type="submit" class="btn btn-danger">Rechazar</button>
-        </form>
+            <form method="post" action="DetalleEntrega.jsp">
+                <input type="hidden" name="accion" value="aceptar">
+                <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+                <button type="submit" class="btn btn-success">Aceptar</button>
+            </form>
 
-        <button onclick="window.location.href='RevisarEntrega.jsp'" class="btn btn-secondary">Volver</button>
+            <form method="post" action="DetalleEntrega.jsp">
+                <input type="hidden" name="accion" value="rechazar">
+                <input type="hidden" name="idEntregaIncompleta" value="<%= idEntregaIncompleta %>">
+                <button type="submit" class="btn btn-danger">Rechazar</button>
+            </form>
 
+            <button onclick="window.location.href='RevisarEntrega.jsp'" class="btn btn-secondary">Volver</button>
+        </div>
         <% } %>
     </div>
 </body>
