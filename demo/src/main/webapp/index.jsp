@@ -78,7 +78,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Asegúrate de que el modal esté encima de otros elementos */
+    z-index: 9999;
 }
 
 /* Estilo del contenido del modal */
